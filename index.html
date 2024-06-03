@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <style>
+        .error {
+            color:grey;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Order Form</h1>
+    <form id="orderForm"></form>
+        <div>
+            <label for="username">Username :</label>
+            <input id="username" name="username" maxlength="20"> 
+            <span id="usernameError" class="error"></span>
+            <br>
+        </div>
+
+        <div>
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="male"> Male
+            <input type="radio" id="female" name="gender" value="female"> Female
+            <span id="genderError" class="error"></span>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input id="email" name="email" maxlength="250"> 
+            <span id="emailError" class="error"></span>
+        </div>
+
+        <div>
+            <label for="phone">Phone Number :</label>
+            <input type="text" id="phone" name="phone">
+            <span id="phoneError" class="error"></span>
+        </div>
+
+        <div>
+            <label for="location">Location:</label>
+            <select id="location" name="location" >
+                <option value="chennai">Chennai</option>
+                <option value="erode">Erode</option>
+                <option value="coimbatore">Coimbatore</option>
+            </select>
+            <span id="locationError" class="error"></span>
+        </div>
+
+        <div> 
+            <input type="checkbox" id="breakfast" name="meal[]" value="breakfast">
+            <label for="breakfast">Breakfast</label>
+            <input type="checkbox" id="lunch" name="meal[]" value="lunch">
+            <label for="lunch">Lunch</label>
+            <input type="checkbox" id="dinner" name="meal[]" value="dinner">
+            <label for="dinner">Dinner</label>
+            <span id="mealError" class="error"></span>
+        </div>
+
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+            <span id="dateError" class="error"></span>
+            <br>
+        </div>
+
+        <button type="button">Order</button>
+
+        <h2>Order Details</h2>
+        <table id="orderTable" border="1">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Gender</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Location</th>
+                    <th>Meal Selected</th>
+                    <th>Date</th>
+                    <th>Amount to be Paid</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+    </form>
+    <script src="script.js"></script>
+</body>
+</html>
