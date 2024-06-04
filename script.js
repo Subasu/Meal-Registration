@@ -202,12 +202,6 @@ function updateMealOptions() {
             label.style.display = 'none';
       });
 
-    // Hide all labels
-    const labels = document.querySelectorAll('label[for="breakfast"], label[for="lunch"], label[for="dinner"]');
-    labels.forEach(label => {
-        label.style.display = 'none';
-    });
-
     if (location === 'chennai') {
         breakfastCheckbox.style.display = 'inline';
         lunchCheckbox.style.display = 'inline';
