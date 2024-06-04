@@ -87,22 +87,20 @@ function validateEmail() {
         return false;
     }
 
-    if (email.length - dotIndex < 3) {
+    if (email.length - dotIndex < 4) {
         displayError(emailError, 'Email must have at least 3 characters after ".".');
         return false;
     }
 
-    if (email.length - atIndex < 3) {
+    if (email.length - atIndex < 4) {
         displayError(emailError, 'Email must have at least 3 characters after "@".');
         return false;
     }
 
     const plusIndex = email.indexOf('+');
-    if (plusIndex > -1 && plusIndex < atIndex) {
+    if (plusIndex > -1 && plusIndex < atIndex) {//if plus exist and plus is before at
         // Plus sign is before "@" symbol
-        const localPart = email.substring(0, atIndex);
-        const plusPart = localPart.substring(plusIndex + 1, atIndex);
-        if (plusPart.length === 0) {
+        if (atIndex-plusIndex-1===0) {
             displayError(emailError, 'Invalid email format (must have at least one character between "+" and "@").');
             return false;
         }
@@ -121,34 +119,28 @@ function validateGender() {
         genderError.textContent = 'Please select your gender (Male or Female).';
         return false;
     }
-
-    genderError.textContent = '';
+    clearError(genderError);
     return true;
 }
 
 // Phone validation
 function validatePhone() {
     const phone = phoneInput.value.trim();
-
-    if (!phone) {
-        displayError(phoneError, 'Phone number is required.');
+    
+    if (phone && !/^\+91\d{10}$/.test(phone)) {
+        displayError(phoneError, 'Invalid phone number format. Must start with +91 and have 10 digits.');
         return false;
     }
-
+    
     if (phone.length > 13) {
         displayError(phoneError, 'Phone number cannot exceed 13 characters.');
         return false;
     }
-
-    if (!/^\+91\d{10}$/.test(phone)) {
-        displayError(phoneError, 'Invalid phone number format. Must start with +91 and have 10 digits.');
-        return false;
-    }
-
     clearError(phoneError);
     return true;
 }
 
+//location validation
 function validateLocation() {
     const location = locationSelect.value;
     if (!location) {
@@ -159,6 +151,7 @@ function validateLocation() {
     return true;
 }
 
+//meal validation
 function validateMeal() {
     let isChecked = false;
     mealCheckboxes.forEach(checkbox => {
@@ -174,6 +167,7 @@ function validateMeal() {
     return true;
 }
 
+//date validation
 function validateDate() {
     const date = dateInput.value;
 
@@ -185,6 +179,8 @@ function validateDate() {
     clearError(dateError);
     return true;
 }
+
+//display meal using location
 function updateMealOptions() {
     const location = locationSelect.value;
     const breakfastCheckbox = document.getElementById('breakfast');
@@ -283,12 +279,12 @@ document.addEventListener('DOMContentLoaded', () => {
     locationSelect.value = 'chennai';
     updateMealOptions();
 })
-orderButton.addEventListener('click',submitOrder)
+orderButton.addEventListener('click',submitOrder);
 usernameInput.addEventListener('blur', validateUsername);
 emailInput.addEventListener('blur', validateEmail);
 phoneInput.addEventListener('blur', validatePhone);
 locationSelect.addEventListener('change', validateLocation);
-genderRadios.forEach(gender => gender.addEventListener('change', validateGender));
+genderRadios.addEventListener('change', validateGender);
 mealCheckboxes.forEach(checkbox => checkbox.addEventListener('change', validateMeal));
 dateInput.addEventListener('blur', validateDate);
 locationSelect.addEventListener('change', updateMealOptions);
