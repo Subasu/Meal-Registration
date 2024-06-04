@@ -284,7 +284,7 @@ usernameInput.addEventListener('blur', validateUsername);
 emailInput.addEventListener('blur', validateEmail);
 phoneInput.addEventListener('blur', validatePhone);
 locationSelect.addEventListener('change', validateLocation);
-genderRadios.addEventListener('change', validateGender);
+genderRadios.forEach(gender => gender.addEventListener('change', validateGender));
 mealCheckboxes.forEach(checkbox => checkbox.addEventListener('change', validateMeal));
 dateInput.addEventListener('blur', validateDate);
 locationSelect.addEventListener('change', updateMealOptions);
