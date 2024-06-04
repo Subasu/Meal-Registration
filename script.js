@@ -18,14 +18,12 @@ const mealError = document.getElementById('mealError');
 const dateError = document.getElementById('dateError');
 
 // Function to display error message 
-function displayError(field, errorElement, message) {
+function displayError(errorElement, message) {
     errorElement.textContent = message;
-    field.classList.add('error');
 }
 
 // Function to clear error message and remove error class
-function clearError(field, errorElement) {
-    field.classList.remove('error');
+function clearError(errorElement) {
     errorElement.textContent = '';  
 }
 
@@ -34,31 +32,31 @@ function validateUsername() {
     const username = usernameInput.value;
 
     if (!username) {
-        displayError(usernameInput, usernameError, 'Username is required.');
+        displayError(usernameError, 'Username is required.');
         return false;
     }
 
     if (username.length >= 20) {
-        displayError(usernameInput, usernameError, 'Username cannot exceed 20 characters.');
+        displayError(usernameError, 'Username cannot exceed 20 characters.');
         return false;
     }
 
     if (!/[a-zA-Z0-9_#]/.test(username)) {
-        displayError(usernameInput, usernameError, 'Username must contain letters, numbers, underscore, or hash.');
+        displayError(usernameError, 'Username must contain letters, numbers, underscore, or hash.');
         return false;
     }
     
     if (/^[0-9]/.test(username)) {
-        displayError(usernameInput, usernameError, 'Username cannot start with a number.');
+        displayError(usernameError, 'Username cannot start with a number.');
         return false;
     }
 
     if (username.indexOf('_') === -1 && username.indexOf('#') === -1) {
-        displayError(usernameInput, usernameError, 'Username should contain at least one of underscore (_) or hash (#).');
+        displayError(usernameError, 'Username should contain at least one of underscore (_) or hash (#).');
         return false;
     }
 
-    clearError(usernameInput, usernameError);
+    clearError(usernameError);
     return true;
 }
 
@@ -67,12 +65,12 @@ function validateEmail() {
     const email = emailInput.value;
 
     if (!email) {
-        displayError(emailInput, emailError, 'Email is required.');
+        displayError(emailError, 'Email is required.');
         return false;
     }
 
     if (email.length > 250) {
-        displayError(emailInput, emailError, 'Email cannot exceed 250 characters.');
+        displayError(emailError, 'Email cannot exceed 250 characters.');
         return false;
     }
 
@@ -80,22 +78,22 @@ function validateEmail() {
     const dotIndex = email.lastIndexOf('.');
 
     if (atIndex < 0 || dotIndex < 0 || atIndex > dotIndex) {
-        displayError(emailInput, emailError, 'Invalid email format (must contain "@" and ".").');
+        displayError(emailError, 'Invalid email format (must contain "@" and ".").');
         return false;
     }
 
     if (email.indexOf('@', atIndex + 1) !== -1) {
-        displayError(emailInput, emailError, 'Email can only contain one "@" symbol.');
+        displayError(emailError, 'Email can only contain one "@" symbol.');
         return false;
     }
 
     if (email.length - dotIndex < 3) {
-        displayError(emailInput, emailError, 'Email must have at least 3 characters after ".".');
+        displayError(emailError, 'Email must have at least 3 characters after ".".');
         return false;
     }
 
     if (email.length - atIndex < 3) {
-        displayError(emailInput, emailError, 'Email must have at least 3 characters after "@".');
+        displayError(emailError, 'Email must have at least 3 characters after "@".');
         return false;
     }
 
@@ -105,12 +103,12 @@ function validateEmail() {
         const localPart = email.substring(0, atIndex);
         const plusPart = localPart.substring(plusIndex + 1, atIndex);
         if (plusPart.length === 0) {
-            displayError(emailInput, emailError, 'Invalid email format (must have at least one character between "+" and "@").');
+            displayError(emailError, 'Invalid email format (must have at least one character between "+" and "@").');
             return false;
         }
     }
 
-    clearError(emailInput, emailError);
+    clearError(emailError);
     return true;
 }
 
@@ -133,31 +131,31 @@ function validatePhone() {
     const phone = phoneInput.value.trim();
 
     if (!phone) {
-        displayError(phoneInput, phoneError, 'Phone number is required.');
+        displayError(phoneError, 'Phone number is required.');
         return false;
     }
 
     if (phone.length > 13) {
-        displayError(phoneInput, phoneError, 'Phone number cannot exceed 13 characters.');
+        displayError(phoneError, 'Phone number cannot exceed 13 characters.');
         return false;
     }
 
     if (!/^\+91\d{10}$/.test(phone)) {
-        displayError(phoneInput, phoneError, 'Invalid phone number format. Must start with +91 and have 10 digits.');
+        displayError(phoneError, 'Invalid phone number format. Must start with +91 and have 10 digits.');
         return false;
     }
 
-    clearError(phoneInput, phoneError);
+    clearError(phoneError);
     return true;
 }
 
 function validateLocation() {
     const location = locationSelect.value;
     if (!location) {
-        displayError(locationSelect, locationError, 'Location is required.');
+        displayError(locationError, 'Location is required.');
         return false;
     }
-    clearError(locationSelect, locationError);
+    clearError(locationError);
     return true;
 }
 
@@ -180,11 +178,11 @@ function validateDate() {
     const date = dateInput.value;
 
     if (!date) {
-        displayError(dateInput, dateError, 'Date is required.');
+        displayError(dateError, 'Date is required.');
         return false;
     }
 
-    clearError(dateInput, dateError);
+    clearError(dateError);
     return true;
 }
 function updateMealOptions() {
