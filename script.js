@@ -77,6 +77,11 @@ function validateEmail() {
     const atIndex = email.indexOf('@');
     const dotIndex = email.lastIndexOf('.');
 
+    if (email.length - atIndex < 4) {
+        displayError(emailError, 'Email must have at least 3 characters after "@".');
+        return false;
+    }
+
     if (atIndex < 0 || dotIndex < 0 || atIndex > dotIndex) {
         displayError(emailError, 'Invalid email format (must contain "@" and ".").');
         return false;
@@ -87,18 +92,13 @@ function validateEmail() {
         return false;
     }
 
-    if (email.length - dotIndex < 4) {
-        displayError(emailError, 'Email must have at least 3 characters after ".".');
-        return false;
-    }
-
-    if (email.length - atIndex < 4) {
-        displayError(emailError, 'Email must have at least 3 characters after "@".');
+    if (email.length - dotIndex <= 2) {
+        displayError(emailError, 'Email must have at least 2 characters after ".".');
         return false;
     }
 
     const plusIndex = email.indexOf('+');
-    if (plusIndex > -1 && plusIndex < atIndex) {//if plus exist and plus is before at
+    if (plusIndex > -1 && plusIndex < atIndex) {//if plus exist and plus is before @
         // Plus sign is before "@" symbol
         if (atIndex-plusIndex-1===0) {
             displayError(emailError, 'Invalid email format (must have at least one character between "+" and "@").');
@@ -220,7 +220,7 @@ function updateMealOptions() {
 
 // Function to submit order form
 function submitOrder() {
-    const isValidUsername = validateUsername();
+    const isValidUsername =validateUsername() ;
     const isValidEmail = validateEmail();
     const isValidGender = validateGender();
     const isValidPhone = validatePhone();
